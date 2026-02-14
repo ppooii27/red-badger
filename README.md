@@ -1,10 +1,10 @@
-# red-badger
+# Red Badger
 
 Red Badger coding chanllenge
 
 ## Prerequisites
 
-- Node.js = 25.2.3
+- Node.js >= 25.2.3
 
 ## Getting Started
 
