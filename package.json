@@ -1,0 +1,17 @@
+{
+  "name": "red-badger",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "tsx app.ts",
+    "dev": "tsx watch app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
