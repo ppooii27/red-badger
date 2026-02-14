@@ -1,4 +1,6 @@
 import { Direction, Robot, Instruction } from "./types";
+import { CONFIG } from "./config";
+import { Grid } from "./lib/grid";
 
 if (require.main === module) {
   const readline = require("readline");
@@ -16,7 +18,11 @@ if (require.main === module) {
      * ask for the grid size (max coordinate value is 50)
      */
     const gridInput = await ask("Please input the grid size (x, y): ");
-    console.log("gridInput", gridInput);
+    const [maxX, maxY] = gridInput
+      .trim()
+      .split(/\s+/)
+      .map((num) => Math.min(Number(num), CONFIG.GRID_MAX));
+    const grid = new Grid(maxX, maxY);
 
     /**
      * the following input consists of sequences of position and instructions for each robot
@@ -38,6 +44,6 @@ if (require.main === module) {
       // Process and output the result
     }
 
-    rl.close();
+    // rl.close();
   })();
 }
