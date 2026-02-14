@@ -1,10 +1,3 @@
-export interface Robot {
-  x: number;
-  y: number;
-  direction: Direction;
-  lost: boolean;
-}
-
 /**
  * North (N), South (S), East (E), and West (W)
  */

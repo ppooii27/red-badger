@@ -1,6 +1,6 @@
-import { Direction, Robot, Instruction } from "./types";
+import { Direction, Instruction } from "./types";
 import { CONFIG } from "./config";
-import { Grid } from "./lib/grid";
+import { Grid, Robot } from "./lib";
 
 if (require.main === module) {
   const readline = require("readline");
@@ -36,9 +36,12 @@ if (require.main === module) {
       const instrInput = await ask("instructions (e.g., FFRLF): ");
 
       const parts = posInput.trim().split(/\s+/);
-      const x = parseInt(parts[0], 10);
-      const y = parseInt(parts[1], 10);
-      const orientation = parts[2] as Direction;
+      const robot = new Robot(
+        parseInt(parts[0], 10),
+        parseInt(parts[1], 10),
+        parts[2] as Direction,
+      );
+
       const instructions = instrInput.trim().split("") as Instruction[];
 
       // Process and output the result
