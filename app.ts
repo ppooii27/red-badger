@@ -30,6 +30,8 @@ function processInstructions(
   return robot;
 }
 
+export { processInstructions };
+
 if (require.main === module) {
   const readline = require("readline");
   const rl = readline.createInterface({
