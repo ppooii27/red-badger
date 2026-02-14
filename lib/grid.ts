@@ -9,13 +9,12 @@ export class Grid {
     this.scents = new Set();
   }
 
-  // Todo: check boundary
   isOutOfBounds(x: number, y: number): boolean {
-    return false;
+    return x < 0 || x > this.maxX || y < 0 || y > this.maxY;
   }
-  // Todo: check scent
+
   hasScent(x: number, y: number): boolean {
-    return false;
+    return this.scents.has(`${x},${y}`);
   }
 
   addScent(x: number, y: number): void {
