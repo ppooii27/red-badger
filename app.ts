@@ -119,7 +119,5 @@ if (require.main === module) {
       const result = processInstructions(robot, instructions, grid);
       console.log("Output: ", result.getPosition());
     }
-
-    // rl.close();
   })();
 }
