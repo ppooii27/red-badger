@@ -3,8 +3,17 @@
 ## Getting Started
 
 Set up environment, install dependencies.
+
 ```
 nvm use
 npm install
 npm start
+```
+
+## Unit Tests
+
+Run all tests:
+
+```
+npm run test
 ```
