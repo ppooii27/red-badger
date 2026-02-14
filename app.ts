@@ -43,6 +43,28 @@ function parseGridInput(input: string): Grid {
   return new Grid(maxX, maxY);
 }
 
+function parseRobotInput(input: string): Robot | null {
+  const parts = input.toUpperCase().trim().split(/\s+/);
+  const x = parseInt(parts[0], 10);
+  const y = parseInt(parts[1], 10);
+  const direction = parts[2] as Direction;
+
+  if (isNaN(x) || isNaN(y) || !["N", "S", "E", "W"].includes(direction)) {
+    return null;
+  }
+
+  return new Robot(x, y, direction);
+}
+
+function parseInstructionInput(input: string): Instruction[] | null {
+  const chars = input.toUpperCase().trim().split("");
+  if (chars.length === 0) return null;
+  if (!chars.every((c) => ["F", "L", "R"].includes(c as Instruction))) {
+    return null;
+  }
+  return chars as Instruction[];
+}
+
 export { processInstructions };
 
 if (require.main === module) {
@@ -60,7 +82,7 @@ if (require.main === module) {
      * first line of input is the upper-right coordinates of the grid
      * ask for the grid size (max coordinate value is 50)
      */
-    const gridInput = await ask("Please input the grid size (x, y): ");
+    const gridInput = await ask("Grid size (e.g 3 5): ");
     const grid = parseGridInput(gridInput);
 
     /**
@@ -71,24 +93,31 @@ if (require.main === module) {
      */
 
     while (true) {
-      const posInput = await ask("position & direction (e.g., 1 2 N): ");
-      const instrInput = await ask("instructions (e.g., FFRLF): ");
+      let robot: Robot | null = null;
+      while (!robot) {
+        const posInput = await ask(
+          "Robot position & direction (e.g., 1 2 N): ",
+        );
+        robot = parseRobotInput(posInput);
+        if (!robot)
+          console.log(
+            "Invalid input. Please enter: x y direction (e.g., 1 2 N)",
+          );
+      }
 
-      const parts = posInput.toUpperCase().trim().split(/\s+/);
-      const robot = new Robot(
-        parseInt(parts[0], 10),
-        parseInt(parts[1], 10),
-        parts[2] as Direction,
-      );
-
-      const instructions = instrInput
-        .toLocaleUpperCase()
-        .trim()
-        .split("") as Instruction[];
+      let instructions: Instruction[] | null = null;
+      while (!instructions) {
+        const instrInput = await ask("instructions (e.g., FFRLF): ");
+        instructions = parseInstructionInput(instrInput);
+        if (!instructions)
+          console.log(
+            "Invalid input. Please enter F, L, or R only (e.g., FFRLF)",
+          );
+      }
 
       // Process and output the result
       const result = processInstructions(robot, instructions, grid);
-      console.log(result.getPosition());
+      console.log("Output: ", result.getPosition());
     }
 
     // rl.close();
