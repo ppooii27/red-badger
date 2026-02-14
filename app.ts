@@ -30,6 +30,19 @@ function processInstructions(
   return robot;
 }
 
+function parseGridInput(input: string): Grid {
+  const parts = input.trim().split(/\s+/);
+  const rawX = Number(parts[0]);
+  const rawY = Number(parts[1]);
+  const maxX = isNaN(rawX)
+    ? CONFIG.GRID_DEFAULT_X
+    : Math.min(rawX, CONFIG.GRID_MAX);
+  const maxY = isNaN(rawY)
+    ? CONFIG.GRID_DEFAULT_Y
+    : Math.min(rawY, CONFIG.GRID_MAX);
+  return new Grid(maxX, maxY);
+}
+
 export { processInstructions };
 
 if (require.main === module) {
@@ -48,11 +61,7 @@ if (require.main === module) {
      * ask for the grid size (max coordinate value is 50)
      */
     const gridInput = await ask("Please input the grid size (x, y): ");
-    const [maxX, maxY] = gridInput
-      .trim()
-      .split(/\s+/)
-      .map((num) => Math.min(Number(num), CONFIG.GRID_MAX));
-    const grid = new Grid(maxX, maxY);
+    const grid = parseGridInput(gridInput);
 
     /**
      * the following input consists of sequences of position and instructions for each robot

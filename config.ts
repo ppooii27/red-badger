@@ -1,4 +1,6 @@
 export const CONFIG = {
     GRID_MAX: 50,
     MAX_INSTRUCTION_LENGTH: 99,
+    GRID_DEFAULT_X: 50,
+    GRID_DEFAULT_Y: 50,
 }
